@@ -2,7 +2,9 @@
 #AzurePIPELINE-DACPACfile-MS-SQLDeployment
 #Faculty:DavidMillerversion:1
 ###################################################
-trigger:-main
+
+trigger:
+-main
 
 pool:
   name:Local-Windows
