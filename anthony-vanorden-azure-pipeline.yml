@@ -53,10 +53,10 @@ stages:
             displayName:'Deployusingdacpacfile'
             inputs:
               tasktype:'dacpac'
-              DacpacFile:'$(System.DefaultWorkingDirectory)/drop/$(BowlingLeagueExample.dacpac)'
+              DacpacFile:'$(System.DefaultWorkingDirectory)/drop/$(dacpac-file-name)'
               TargetMethod:'server'
               ServerName:'localhost'
-              DatabaseName:'$(BowlingLeagueExample)'
+              DatabaseName:'$(sql-db-name)'
               AuthScheme:sqlServerAuthentication
-              SqlUsername:'$(azure)'
-              SqlPassword:'$(Sq157azure93!)'
+              SqlUsername:'$(sql-db-login)'
+              SqlPassword:'$(sql-db-password)'
