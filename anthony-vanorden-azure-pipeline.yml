@@ -4,35 +4,35 @@
 ###################################################
 
 trigger:
--main
+- main
 
 pool:
   name:Local-Windows
 
 stages:
--stage:Build
+- stage:Build
   displayName:'CIStage-CopyFilesfromGitHub'
   pool:Local-Windows
   jobs:
-  -job:'Copyfiles'
+  - job:'Copyfiles'
     steps:
-    -task:CopyFiles@2
+    - task:CopyFiles@2
       displayName:'CopyFilesfromGitHubtoPipelinestagingfolder'
       inputs:
         SourceFolder:'$(system.defaultworkingdirectory)'
         Contents:'**\$(dacpac-file-name)'
         TargetFolder:'$(build.artifactstagingdirectory)'
       condition:succeededOrFailed()
-    -task:PublishBuildArtifacts@1
+    - task:PublishBuildArtifacts@1
       displayName:'PublishArtifact:drop'
       inputs:
         PathtoPublish:'$(build.artifactstagingdirectory)'
       condition:succeededOrFailed()
       
--stage:CD
+- stage:CD
   displayName:'CDstage-Deploydacpacfiles'
   jobs:
-  -deployment:VMDeploy
+  - deployment:VMDeploy
     displayName:mssql1
     environment:
       name:Local-Windows-SQL
@@ -42,16 +42,16 @@ stages:
       runOnce:
         deploy:
           steps:
-          -download:none
+          - download:none
           
-          -task:DownloadBuildArtifacts@0
+          - task:DownloadBuildArtifacts@0
             displayName:'DownloadArtifactFile'
             inputs:
               buildType:current
               downloadType:single
               downloadPath:$(System.DefaultWorkingDirectory)
               artifactName:'drop'
-          -task:SqlDacpacDeploymentOnMachineGroup@0
+          - task:SqlDacpacDeploymentOnMachineGroup@0
             displayName:'Deployusingdacpacfile'
             inputs:
               tasktype:'dacpac'
